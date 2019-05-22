@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MainWaitress.Properties
+namespace Waiter_Service.Properties
 {
 
 
