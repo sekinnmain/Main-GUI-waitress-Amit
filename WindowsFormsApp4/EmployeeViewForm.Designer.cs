@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp4
 {
-    partial class Form1
+    partial class EmployeeViewForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView1OrdersFromSrv = new System.Windows.Forms.DataGridView();
             this.TotallDayWorked = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WorkerWorkedTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CustomerFeedBack = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,7 +38,7 @@
             this.TotalDayProfit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalDayExpense = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumberOfReamianingDish = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1OrdersFromSrv)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -59,10 +59,10 @@
             this.button2.Text = "Edit Management Service";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dataGridView1OrdersFromSrv
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridView1OrdersFromSrv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1OrdersFromSrv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TotallDayWorked,
             this.WorkerWorkedTime,
             this.CustomerFeedBack,
@@ -70,10 +70,10 @@
             this.TotalDayProfit,
             this.TotalDayExpense,
             this.NumberOfReamianingDish});
-            this.dataGridView1.Location = new System.Drawing.Point(155, 2);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(644, 454);
-            this.dataGridView1.TabIndex = 2;
+            this.dataGridView1OrdersFromSrv.Location = new System.Drawing.Point(155, 2);
+            this.dataGridView1OrdersFromSrv.Name = "dataGridView1OrdersFromSrv";
+            this.dataGridView1OrdersFromSrv.Size = new System.Drawing.Size(644, 454);
+            this.dataGridView1OrdersFromSrv.TabIndex = 2;
             // 
             // TotallDayWorked
             // 
@@ -115,12 +115,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridView1OrdersFromSrv);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Report Service";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1OrdersFromSrv)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -129,7 +129,7 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView1OrdersFromSrv;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotallDayWorked;
         private System.Windows.Forms.DataGridViewTextBoxColumn WorkerWorkedTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn CustomerFeedBack;
