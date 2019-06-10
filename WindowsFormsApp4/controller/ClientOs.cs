@@ -16,7 +16,7 @@ namespace WindowsFormsApp4.controller
         IPEndPoint ip = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
 
         Socket server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        byte[] data = new byte[1024];
+        byte[] data = new byte[5120];
 
 
         public void ConnectToServer()
@@ -38,7 +38,10 @@ namespace WindowsFormsApp4.controller
         {
             int receivedDataLength = server.Receive(data);
             string stringData = Encoding.ASCII.GetString(data, 0, receivedDataLength);
-            return (XDocument.Parse(stringData));
+            XDocument xmlSample;
+            xmlSample = XDocument.Parse(stringData);
+            CloseSocketSrv();
+            return (xmlSample);
         }
 
         public void CloseSocketSrv()

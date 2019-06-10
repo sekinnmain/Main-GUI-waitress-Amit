@@ -110,7 +110,7 @@
             this.NumberOfReamianingDish.HeaderText = "Number Of Remaining Dish\'s";
             this.NumberOfReamianingDish.Name = "NumberOfReamianingDish";
             // 
-            // Form1
+            // EmployeeViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -118,8 +118,9 @@
             this.Controls.Add(this.dataGridView1OrdersFromSrv);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
+            this.Name = "EmployeeViewForm";
             this.Text = "Report Service";
+            this.Load += new System.EventHandler(this.EmployeeViewForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1OrdersFromSrv)).EndInit();
             this.ResumeLayout(false);
 
