@@ -37,37 +37,41 @@ namespace WindowsFormsApp4
     public partial class EmployeeViewForm : Form
     {
         public int interval = 60000;
-        DataSet dataSet = new DataSet();
-        DataTable OrderServiceTable = new DataTable("Order Service");
-        controller.ClientOs myClient = new controller.ClientOs();
         DataRow row;
+        DataTable OrderServiceTable = new DataTable("Order Service");
         XDocument myDataFromServer;
+        DataSet dataSet = new DataSet();
+        int tickTack;
+        //controller.ClientOs myClient = new controller.ClientOs();
+
 
 
         public EmployeeViewForm()
         {
 
             InitializeComponent();
-            myClient.ConnectToServer();
-            new System.Threading.Timer(ReadData, null, 0, interval);
+            timer1.Start();
+            
 
         }
 
-        public void ReadData(object o)
+        public void ReadData()
         {
-           myDataFromServer = myClient.GetDataFromSrv();
+           
+            controller.ClientOs.ConnectToServer();
+            myDataFromServer = controller.ClientOs.GetDataFromSrv();
             BindDataToGrid();
-            dataGridView1OrdersFromSrv.DataSource = dataSet;
         }
 
         public void BindDataToGrid()
         {
             
 
-            foreach (XElement xe in (myDataFromServer.XPathSelectElements($"//User")))
+            foreach (XElement xe in (myDataFromServer.XPathSelectElements($"//Order")))
             {
                 row = OrderServiceTable.NewRow();
-                row["idOrder"] = xe.Element("idOrder").Value;
+
+                row["IdOrder"] = xe.Element("IdOrder").Value;
                 row["user"] = xe.Element("user").Value;
                 row["dishes"] = xe.Element("dishes").Value;
                 row["TimeOrder"] = xe.Element("TimeOrder").Value;
@@ -75,6 +79,8 @@ namespace WindowsFormsApp4
                 row["ClinetRequest"] = xe.Element("ClinetRequest").Value;
                 OrderServiceTable.Rows.Add(row);
             }
+            dataGridView1OrderService2.DataSource = OrderServiceTable;
+
         }
 
         private void EmployeeViewForm_Load(object sender, EventArgs e)
@@ -88,6 +94,12 @@ namespace WindowsFormsApp4
             dataSet.Tables.Add(OrderServiceTable);
 
 
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            tickTack++;
+            ReadData();
         }
     }
 }
