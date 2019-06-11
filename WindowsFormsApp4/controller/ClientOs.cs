@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Xml.Linq;
-
+using System.Threading;
 
 namespace WindowsFormsApp4.controller
 {
@@ -20,16 +20,25 @@ namespace WindowsFormsApp4.controller
         public static byte[] data = new byte[5120];
 
 
+        public static ManualResetEvent allDone = new ManualResetEvent(false);
+        public static void ConnectCallback1(IAsyncResult ar)
+        {
+            allDone.Set();
+            Socket s = (Socket)ar.AsyncState;
+            s.EndConnect(ar);
+        }
+
         public static void ConnectToServer()
         {
 
             try
             {
-                 
-                    server.Connect(ip);
-                
-                    
+                allDone.Reset();
+                server.BeginConnect(ip.Address, port: 9999, new AsyncCallback(ConnectCallback1), server);
+                allDone.WaitOne();
+                server.Connect(ip);
             }
+
             catch (SocketException e)
             {
                 Console.WriteLine("Unable to connect to server.");
