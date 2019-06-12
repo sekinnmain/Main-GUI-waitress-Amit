@@ -60,6 +60,7 @@ namespace WindowsFormsApp4
            
             controller.ClientOs.ConnectToServer();
             myDataFromServer = controller.ClientOs.GetDataFromSrv();
+            OrderServiceTable.Clear();
             BindDataToGrid();
         }
 

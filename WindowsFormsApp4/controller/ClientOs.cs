@@ -21,6 +21,13 @@ namespace WindowsFormsApp4.controller
 
 
         public static ManualResetEvent allDone = new ManualResetEvent(false);
+        //________________________________________________________
+        private static bool FirstTimeVisited = true;
+        private static XDocument xmlSample;
+        private static string CurrentXmlData;
+        private static XDocument xmlSampleEmpty;
+
+
         public static void ConnectCallback1(IAsyncResult ar)
         {
             allDone.Set();
@@ -33,6 +40,7 @@ namespace WindowsFormsApp4.controller
 
             try
             {
+
                 allDone.Reset();
                 server.BeginConnect(ip.Address, port: 9999, new AsyncCallback(ConnectCallback1), server);
                 allDone.WaitOne();
@@ -49,13 +57,42 @@ namespace WindowsFormsApp4.controller
 
         public static XDocument GetDataFromSrv()
         {
+            //receivedDataLength = server.Receive(data);
+            //string stringData = Encoding.ASCII.GetString(data, 0, receivedDataLength);
+            //XDocument xmlSample;
+            //xmlSample = XDocument.Parse(stringData);
+            //server.Disconnect(true);
+            //FirstTimeVisited = false;
+            //return (xmlSample);
+
+
+
+
             int receivedDataLength = 0;
-            receivedDataLength = server.Receive(data);
-            string stringData = Encoding.ASCII.GetString(data, 0, receivedDataLength);
-            XDocument xmlSample;
-            xmlSample = XDocument.Parse(stringData);
-            server.Disconnect(true);
-            return (xmlSample);
+            if(FirstTimeVisited)
+            {
+                receivedDataLength = server.Receive(data);
+                string stringData = Encoding.ASCII.GetString(data, 0, receivedDataLength);
+                CurrentXmlData = stringData;
+                xmlSample = XDocument.Parse(stringData);
+                server.Disconnect(true);
+                FirstTimeVisited = false;
+                return (xmlSample);
+            }else
+            {
+                receivedDataLength = server.Receive(data);
+
+                string stringData = Encoding.ASCII.GetString(data, 0, receivedDataLength);
+                if(!stringData.Equals(CurrentXmlData))
+                {
+                    xmlSample = XDocument.Parse(stringData);
+                    server.Disconnect(true);
+                    FirstTimeVisited = false;
+                    return (xmlSample);
+                }
+                return (xmlSampleEmpty);
+            }
+            
         }
 
         public static void CloseSocketSrv()
