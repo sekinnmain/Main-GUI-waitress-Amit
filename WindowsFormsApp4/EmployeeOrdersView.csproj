@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="controller\ClientOs.cs" />
+    <Compile Include="controller\syncClientstatic.cs" />
     <Compile Include="EmployeeViewForm.cs">
       <SubType>Form</SubType>
     </Compile>

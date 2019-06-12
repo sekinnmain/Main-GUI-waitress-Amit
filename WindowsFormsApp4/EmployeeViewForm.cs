@@ -1,34 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Main.ClientOs;
 
-
-//public static void XmlParserOrder(OrderService myOrder)
-//{
-//    XDocument doc = XDocument.Load(xmlOrder);
-//    XElement school = doc.Element("Orders");
-//    school.Add(new XElement("Order",
-//               new XElement("IdOrder", myOrder.IdOrder),
-//               new XElement("user", myOrder.user),
-//               new XElement("dishes", myOrder.dishNameFromOrder()),
-//               new XElement("TimeOrder", DateTime.Now),
-//               new XElement("SeatOrGo", myOrder.SeatOrGo),
-//               new XElement("TableBnum", myOrder.TableBnum),
-//               new XElement("ClinetRequest", myOrder.Nots),
-//               new XElement("Price", myOrder.price)));
-
-
-//    doc.Save(xmlOrder);
-//}
 
 namespace WindowsFormsApp4
 
@@ -42,7 +18,6 @@ namespace WindowsFormsApp4
         XDocument myDataFromServer;
         DataSet dataSet = new DataSet();
         int tickTack;
-        //controller.ClientOs myClient = new controller.ClientOs();
 
 
 
@@ -57,9 +32,8 @@ namespace WindowsFormsApp4
 
         public void ReadData()
         {
-           
-            controller.ClientOs.ConnectToServer();
-            myDataFromServer = controller.ClientOs.GetDataFromSrv();
+            SynchronousSocketClient ssc = new SynchronousSocketClient();
+            myDataFromServer = ssc.GetData();
             OrderServiceTable.Clear();
             BindDataToGrid();
         }
@@ -72,12 +46,12 @@ namespace WindowsFormsApp4
             {
                 row = OrderServiceTable.NewRow();
 
-                row["IdOrder"] = xe.Element("IdOrder").Value;
-                row["user"] = xe.Element("user").Value;
-                row["dishes"] = xe.Element("dishes").Value;
-                row["TimeOrder"] = xe.Element("TimeOrder").Value;
-                row["TableBnum"] = xe.Element("TableBnum").Value;
-                row["ClinetRequest"] = xe.Element("ClinetRequest").Value;
+                row["Order number"] = xe.Element("IdOrder").Value;
+                row["Client name"] = xe.Element("user").Value;
+                row["Dishes ordered"] = xe.Element("dishes").Value;
+                row["Time since ordered"] = xe.Element("TimeOrder").Value;
+                row["Table number"] = xe.Element("TableBnum").Value;
+                row["Client petition"] = xe.Element("ClinetRequest").Value;
                 OrderServiceTable.Rows.Add(row);
             }
             dataGridView1OrderService2.DataSource = OrderServiceTable;
@@ -86,12 +60,12 @@ namespace WindowsFormsApp4
 
         private void EmployeeViewForm_Load(object sender, EventArgs e)
         {
-            OrderServiceTable.Columns.Add("IdOrder");
-            OrderServiceTable.Columns.Add("user");
-            OrderServiceTable.Columns.Add("dishes");
-            OrderServiceTable.Columns.Add("TimeOrder");
-            OrderServiceTable.Columns.Add("TableBnum");
-            OrderServiceTable.Columns.Add("ClinetRequest");
+            OrderServiceTable.Columns.Add("Order number");
+            OrderServiceTable.Columns.Add("Client name");
+            OrderServiceTable.Columns.Add("Dishes ordered");
+            OrderServiceTable.Columns.Add("Time since ordered");
+            OrderServiceTable.Columns.Add("Table number");
+            OrderServiceTable.Columns.Add("Client petition");
             dataSet.Tables.Add(OrderServiceTable);
 
 
