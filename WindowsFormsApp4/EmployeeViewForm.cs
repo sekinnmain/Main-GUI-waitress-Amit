@@ -44,12 +44,14 @@ namespace WindowsFormsApp4
 
             foreach (XElement xe in (myDataFromServer.XPathSelectElements($"//Order")))
             {
+                Double timeWaiting = (DateTime.Now - (DateTime.Parse(xe.Element("TimeOrder").Value))).TotalMinutes;
+
                 row = OrderServiceTable.NewRow();
 
                 row["Order number"] = xe.Element("IdOrder").Value;
                 row["Client name"] = xe.Element("user").Value;
                 row["Dishes ordered"] = xe.Element("dishes").Value;
-                row["Time since ordered"] = xe.Element("TimeOrder").Value;
+                row["Time since ordered"] = string.Format($"{timeWaiting.ToString("0.00")} minutes ago");
                 row["Table number"] = xe.Element("TableBnum").Value;
                 row["Client petition"] = xe.Element("ClinetRequest").Value;
                 OrderServiceTable.Rows.Add(row);
