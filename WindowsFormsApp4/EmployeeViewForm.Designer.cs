@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp4
+﻿namespace ClientMain
 {
     partial class EmployeeViewForm
     {

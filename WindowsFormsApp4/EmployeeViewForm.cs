@@ -6,8 +6,11 @@ using System.Xml.XPath;
 using Main.ClientOs;
 
 
-namespace WindowsFormsApp4
-
+namespace ClientMain
+/// <summary>
+/// This class represent a form which is a client that connects to the server to port 9999 and get an update snapshot of the Orders.xml and Displays them in the DataGrid.
+/// Developed by Amit Dahari and Yonatan Orozko
+/// </summary>
 
 {
     public partial class EmployeeViewForm : Form
@@ -19,28 +22,24 @@ namespace WindowsFormsApp4
         DataSet dataSet = new DataSet();
         int tickTack;
 
-
-
-        public EmployeeViewForm()
+        public EmployeeViewForm() 
         {
 
             InitializeComponent();
             timer1.Start();
-            
+
 
         }
-
-        public void ReadData()
+        public void ReadData()//Open a socket in port 9999, gets data from server, clear previous data from the Data-grid and binds new data.
         {
             SynchronousSocketClient ssc = new SynchronousSocketClient();
             myDataFromServer = ssc.GetData();
             OrderServiceTable.Clear();
             BindDataToGrid();
         }
-
-        public void BindDataToGrid()
+        public void BindDataToGrid()//Bind the data to the data-grid
         {
-            
+
 
             foreach (XElement xe in (myDataFromServer.XPathSelectElements($"//Order")))
             {
@@ -48,18 +47,17 @@ namespace WindowsFormsApp4
 
                 row = OrderServiceTable.NewRow();
 
-                row["Order number"] = xe.Element("IdOrder").Value;
+                row["Order number"] = xe.Element("idOrder").Value;
                 row["Client name"] = xe.Element("user").Value;
                 row["Dishes ordered"] = xe.Element("dishes").Value;
                 row["Time since ordered"] = string.Format($"{timeWaiting.ToString("0.00")} minutes ago");
-                row["Table number"] = xe.Element("TableBnum").Value;
+                row["Table number"] = xe.Element("tableBnum").Value;
                 row["Client petition"] = xe.Element("ClinetRequest").Value;
                 OrderServiceTable.Rows.Add(row);
             }
             dataGridView1OrderService2.DataSource = OrderServiceTable;
 
         }
-
         private void EmployeeViewForm_Load(object sender, EventArgs e)
         {
             OrderServiceTable.Columns.Add("Order number");
@@ -72,12 +70,10 @@ namespace WindowsFormsApp4
 
 
         }
-
-        private void Timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)//Timer from the designer set to update the data each 5 seconds
         {
             tickTack++;
             ReadData();
         }
     }
 }
- 

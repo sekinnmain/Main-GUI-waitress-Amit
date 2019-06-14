@@ -6,16 +6,16 @@ using System.Xml.Linq;
 
 namespace Main.ClientOs
 {
-
-    public  class SynchronousSocketClient
+    /// <summary>
+    /// This static class makes the actual connection to the server and handles the information to be display in the Data grid 
+    /// Developed by Amit Dahari and Yonatan Orozko
+    /// </summary>
+    public class SynchronousSocketClient
     {
          IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
-        
-         byte[] bytes = new byte[8192];
-
-         XDocument xmlSample;
-
-         public XDocument GetData()
+        XDocument xmlSample;
+        byte[] bytes = new byte[8192];
+         public XDocument GetData()//Get update data from servers convert is to a XDocument  to be display it in the data-grid.
         {
             IPEndPoint remoteEP = new IPEndPoint(ipAddress, 9999);
 
